@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-size: 12px;
+            font-family: Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        fieldset {
+            width: 300px;
+            margin-top: 10px;
+        }
+
+        p.box {
+            background-color: #F0F0F0;
+            padding: 10px;
+            border: 1px solid #606060;
+            border-radius: 18px;
+        }
+
+        a.redlink {
+            color: #FF0000;
+            font-weight: bold;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        td {
+            padding-right: 3px;
+        }
+
+        .messageBox.info {
+            background-image: linear-gradient(to bottom, #d9edf7 0, #b9def0 100%);
+            background-repeat: repeat-x;
+            border-color: #9acfea;
+            color: #31708f;
+            background-color: #d9edf7;
+        }
+
+        .messageBox {
+            padding: 15px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, .2);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25), 0 1px 2px rgba(0, 0, 0, .05);
+        }
+
+        #windowList {
+            padding: 0 10px 10px 10px;
+            word-break: break-word;
+        }
+
+        .history-link {
+            text-align: right;
+        }
+
+    </style>
+    <script src="js/popup.js"></script>
+</head>
+
+<body>
+<div class="messageBox info" id="allTabsCount">
+    <span><strong>$tabsLength$</strong> Open Tabs in
+    <strong>$windowsLength$</strong> windows</span>
+</div>
+<div class="history-link">
+    <a href="" target="_blank">History of Open Tabs</a>
+</div>
+<div id="windowList">
+</div>
+</body>
+
+</html>

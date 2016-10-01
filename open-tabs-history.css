@@ -1,0 +1,157 @@
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url('https://getbootstrap.com/dist/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('https://getbootstrap.com/dist/fonts/glyphicons-halflings-regular.woff2') format('woff2'), url('https://getbootstrap.com/dist/fonts/glyphicons-halflings-regular.woff') format('woff'), url('https://getbootstrap.com/dist/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('https://getbootstrap.com/dist/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+body {
+    font-size: 12px;
+    font-family: Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0 10px 10px 10px;
+}
+
+.history-page {
+    padding-top: 58px;
+}
+
+.search-results, .day-results {
+    margin: 0 0 24px 0;
+    padding: 0;
+}
+
+header {
+    background-image: -webkit-linear-gradient(white, white 40%, rgba(255, 255, 255, 0.92));
+    position: fixed;
+    z-index: 3;
+    left: 20px;
+    right: 20px;
+    top: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+h1, h2, h3 {
+    line-height: 1;
+    font-weight: normal;
+}
+
+h3.day {
+    font-size: 1.2em;
+    margin-bottom: 0.8em;
+    -webkit-user-select: none;
+}
+
+.day .title {
+    padding-left: 10px;
+}
+
+header > h1::after {
+    -webkit-margin-end: 20px;
+    background-color: #eee;
+    content: ' ';
+    display: block;
+    height: 1px;
+    position: relative;
+    top: 13px;
+}
+
+.results {
+    padding: 0 20px;
+}
+
+.entry {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.entry-box {
+    line-height: 1.75em;
+    align-items: center;
+    display: flex;
+    margin-bottom: 6px;
+    max-width: 100%;
+    min-height: 2em;
+    overflow: hidden;
+    padding-bottom: 1px;
+}
+
+.entry-box-container {
+    display: flex;
+}
+
+.entry .time {
+    color: rgb(151, 156, 160);
+    max-width: 90px;
+    min-width: -webkit-min-content;
+    padding-right: 21px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.favicon {
+    background-position-y: center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    flex-shrink: 0;
+    height: 16px;
+    width: 16px;
+}
+
+.entry .visit-entry {
+    display: flex;
+    min-width: 0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 115%;
+}
+
+.entry .title {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.entry .title > a, .site-domain [is='action-link'] {
+    color: rgb(48, 57, 66);
+    margin: 2px;
+    padding: 2px;
+    padding: 0 2px;
+}
+
+.entry .domain {
+    -webkit-padding-end: 6px;
+    -webkit-padding-start: 2px;
+    color: rgb(151, 156, 160);
+    min-width: -webkit-min-content;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: default;
+}
+
+.glyphicon {
+    position: relative;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 80%;
+    top: 1px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.glyphicon-plus:before {
+    content: "\002b";
+}
+
+.glyphicon-minus:before {
+    content: "\2212";
+}
