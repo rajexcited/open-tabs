@@ -39,7 +39,7 @@
             }
             hr = this.getHours() % 12;
             hr = hr === 0 ? 12 : hr;
-            hr = hr.length > 9 ? hr : ' ' + hr;
+            hr = hr > 9 ? hr : '&nbsp;&nbsp;' + hr;
             min = this.getMinutes() > 9 ? this.getMinutes() : '0' + this.getMinutes();
             timeString =
                 ''.concat(hr)
