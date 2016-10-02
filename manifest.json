@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Open Tabs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Displays the count and list of open tabs from current or all windows (configurable) and allows you to select and/or close them. Also shows history of open tabs.",
   "options_page": "options.html",
   "options_ui": {
