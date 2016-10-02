@@ -2,8 +2,7 @@
     'use strict';
 
     var allWindowsTabCount,
-        openTabsHistory = {},
-        favIconrecords = {};
+        openTabsHistory = {};
 
     // set icon's tooltip
     function updateBadgeTitle(count) {
@@ -85,19 +84,13 @@
     };
 
     function addRecord(tab) {
-        console.log(tab);
-        //if (tab.status !== "complete" || typeof tab.openerTabId === "undefined") {
-        openTabsHistory[tab.id] = {
-            title: tab.title,
-            url: tab.url,
-            openTime: Date.now()
-        };
-        if (tab.favIconUrl) {
-            favIconrecords[tab.url] = tab.favIconUrl;
-        } else {
-            console.log('fav icon unavailable');
+        if (/:\/\/([^\/]+)/.test(tab.url)) {
+            openTabsHistory[tab.id] = {
+                title: tab.title,
+                url: tab.url,
+                openTime: Date.now()
+            };
         }
-        //}
     }
 
     function closeRecord(tabId) {
@@ -189,6 +182,7 @@
         if (!localStorage['history']) {
             localStorage['history'] = '[]';
         }
+
     }
 
     // Initialize the extension.

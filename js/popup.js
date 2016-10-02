@@ -1,14 +1,6 @@
 (function (chrome) {
     'use strict';
 
-    //get count of tabs in current window. Required for the popoup display box.
-    /*function getCurrentWindowTabCount() {
-     chrome.tabs.query({currentWindow: true}, function (tabs) {
-     lenText = 'Number of tabs on this window:<strong> ' + tabs.length + '</strong>';
-     document.getElementById('windowTabs').innerHTML = lenText;
-     });
-     }*/
-
     //get count of all tabs. Required for the popoup display box.
     function getAllTabsCount() {
         function updateLength(varName, value) {
@@ -31,17 +23,7 @@
         chrome.windows.getCurrent({populate: true}, function (window) {
             callback([window]);
         });
-        //chrome.tabs.query({currentWindow: true}, function (tabs) {
-        //    callback([tabs]);
-        //});
     }
-
-    //get all tabs
-    //function getAllTabs(callback) {
-    //    chrome.tabs.query({}, function (tabs) {
-    //        callback(tabs);
-    //    });
-    //}
 
     // all tabs by window - shift focused window to first
     function getAllTabsByWindow(callback) {
@@ -83,7 +65,7 @@
                 cell3 = row.insertCell(2);
 
                 cell1.innerHTML = '<a class="redlink" href="">X</span>';
-                cell2.innerHTML = '<img src="' + tabs[i].favIconUrl + '" width="16" height="16">';
+                cell2.innerHTML = '<div class="favicon" style=\'background-image: -webkit-image-set(url("chrome://favicon/size/16@1x/' + tabs[i].url + '") 1x);\'>';
                 cell3.innerHTML = '<a href="" title="' + tabs[i].url + '">' + tabs[i].title + '</a>';
 
                 cell1.addEventListener("click", (function (tabID) {
@@ -99,15 +81,16 @@
                 })(tabs[i].id, tabs[i].windowId));
             }
         });
+        // end of displayResults method
     }
 
-// function to display the selected tab
+    // function to display the selected tab
     function openTab(tabID, windowID) {
         chrome.windows.update(windowID, {focused: true});
         chrome.tabs.update(tabID, {active: true});
     }
 
-// function to close the selected tab
+    // function to close the selected tab
     function closeTab(tabID) {
         chrome.tabs.remove(tabID);
         // reload popup to refresh the count and links
@@ -116,18 +99,16 @@
 
     function initPage() {
         var tabsDisplayOption = localStorage["popupDisplayOption"];
-// if extension is just installed or reloaded, tabsDisplayOption will not be set
+        // if extension is just installed or reloaded, tabsDisplayOption will not be set
         if (typeof tabsDisplayOption === "undefined" || tabsDisplayOption === "currentWindow") {
             getCurrentWindowTabs(displayResults);
         } else {
-            //getCurrentWindowTabCount();
-            //getAllTabs(displayResults);
             getAllTabsByWindow(displayResults);
         }
 
         window.setTimeout(function () {
             var historyLink = chrome.extension.getURL('open-tabs-history.html');
-            var elm = document.querySelector('.history-link a')
+            var elm = document.querySelector('.history-link a');
             elm.href = historyLink;
         }, 100);
     }

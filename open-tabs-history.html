@@ -2,10 +2,6 @@
 <html>
 
 <head>
-    <!--
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    -->
     <link rel="stylesheet" type="text/css" href="open-tabs-history.css">
     <script src="js/open-tabs-history.js"></script>
 </head>
@@ -16,35 +12,53 @@
         <h1>Open Tabs History</h1>
     </header>
     <div class="results">
-        <h3 class="day">
-            <a>
-                <span class="glyphicon glyphicon-plus"></span><span
-                    class="title">Today - Friday, September 30, 2016</span>
-            </a>
-        </h3>
-        <ol class="day-results">
-            <li class="entry">
-                <div class="entry-box-container">
-                    <div class="entry-box">
-                        <span class="time">4:12 AM</span>
-                        <div class="favicon" style="background-image: -webkit-image-set(url(" chrome:
-                        //favicon/size/16@1x/https://developer.chrome.com/extensions/permissions#type-Permissions") 1x,
-                        url("chrome://favicon/size/16@2x/https://developer.chrome.com/extensions/permissions#type-Permissions")
-                        2x);">
+        <!--displays results by day grouping -->
+    </div>
+    <template id="result-display-day">
+        <div class="result-display" id="collapse-result-$collapseIndex$">
+            <h3 class="day">
+                <a data-toggle="collapse"
+                   data-target="#collapse-result-$collapseIndex$ ol.day-results, #collapse-result-$collapseIndex$ .glyphicon-plus > span"
+                   role="button" aria-expanded="true"
+                   aria-controls="collapseExample">
+                    <span class="glyphicon glyphicon-plus">
+                        <span class="glyphicon-plus-top collapse in" aria-expanded="true">&nbsp;</span>
+                        <span class="glyphicon-plus-bottom collapse in" aria-expanded="true">&nbsp;</span>
+                    </span>
+                    <span class="text">$fullDateString$</span>
+                </a>
+            </h3>
+            <ol class="day-results collapse in" aria-expanded="true">
+                <!--result entry-->
+            </ol>
+        </div>
+    </template>
+
+    <template id="result-entry">
+        <li class="entry">
+            <div class="entry-box-container">
+                <div class="entry-box">
+                    <span class="time">$entryTime$</span>
+                    <div class="favicon"
+                         style="background-image:-webkit-image-set(url('chrome://favicon/size/16@1x/$tabUrl$') 1x);">
                     </div>
                     <div class="visit-entry">
                         <div class="title">
-                            <a href="https://developer.chrome.com/extensions/permissions#type-Permissions" target="_top"
-                               title="https://developer.chrome.com/extensions/permissions#type-Permissions">https://developer.chrome.com/extensions/permissions#type-Permissions</a>
+                            <a href="$tabUrl$" title="$tabUrl$" target="_top">
+                                <span class="text">$tabUrl$</span>
+                            </a>
                         </div>
-                        <div class="domain">developer.chrome.com</div>
+                        <div class="domain">$tabDomain$</div>
                     </div>
                 </div>
-    </div>
-    </li>
-    </ol>
+            </div>
+        </li>
+    </template>
 </div>
-</div>
+
+<script src="lib/jquery.min.js"></script>
+<script src="lib/bootstrap.js"></script>
+<script src="lib/underscore-min.js"></script>
 </body>
 
 </html>

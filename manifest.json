@@ -24,6 +24,7 @@
     "128": "images/icon128-min.png"
   },
   "permissions": [
+    "tabs",
     "<all_urls>"
   ],
   "author": "Raj Sheth"
