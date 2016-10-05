@@ -9,7 +9,10 @@
 <body>
 <div class="history-page">
     <header>
-        <h1>Opened Tabs History group by closed by time</h1>
+        <h1>
+            <span>Opened Tabs History group by closed by time</span>
+            <button id="clearHist">Clear History</button>
+        </h1>
     </header>
     <div class="results">
         <!--displays results by day grouping -->
@@ -53,6 +56,28 @@
                 </div>
             </div>
         </li>
+    </template>
+
+    <template id="overlay-layer">
+        <div class="overlay-container">
+            <div class="layer">
+                <span class="glyphicon glyphicon-remove"></span>
+                <span><b>Erase history data: </b></span>
+                <select>
+                    <option value="-1hour">from the past hour</option>
+                    <option value="-0day">from the past day</option>
+                    <option value="-7day">from the past week</option>
+                    <option value="1hour">beyond the hour</option>
+                    <option value="0day">beyond the today</option>
+                    <option value="7day">beyond the week</option>
+                    <option value="empty">all</option>
+                </select>
+
+                <br><br><br>
+                <button id="submit-clear">Clear data</button>
+                <button id="cancel-clear">Cancel</button>
+            </div>
+        </div>
     </template>
 </div>
 

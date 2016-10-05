@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Open Tabs",
-  "version": "0.0.2",
-  "description": "Displays list of open tabs and allows you to take action on them & history of opened tabs.",
+  "version": "0.0.3",
+  "description": "Displays list of open tabs and allows you to take action on them & history of opened tabs & clear option",
   "options_page": "options.html",
   "options_ui": {
     "page": "options.html",

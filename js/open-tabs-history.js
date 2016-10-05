@@ -113,19 +113,115 @@
         return groupedData;
     }
 
+    function cleanHistory(time) {
+        var ddd, tabGroups,
+            dir = 'beyond';
+
+        if (time.indexOf('-') === 0) {
+            dir = 'past';
+            time = time.substr(1);
+        }
+
+        tabGroups = tabsGroupBy(getStoredTabs(), 'closeTime');
+        if (time.indexOf('day') !== -1) {
+            time = parseInt(time.replace('day', ''));
+            ddd = new Date(new Date().toDateString());
+            ddd.setDate(ddd.getDate() - time);
+
+            Object.getOwnPropertyNames(tabGroups)
+                .forEach(function (dateStr, ind) {
+                    var histDate = new Date(dateStr);
+                    if (histDate >= ddd && dir === 'past') {
+                        tabGroups[dateStr] = [];
+                    } else if (histDate < ddd && dir === 'beyond') {
+                        tabGroups[dateStr] = [];
+                    }
+                });
+
+        } else if (time.indexOf('hour') !== -1) {
+            time = parseInt(time.replace('hour', ''));
+            ddd = new Date();
+            ddd.setHours(ddd.getHours() - time);
+
+            Object.getOwnPropertyNames(tabGroups)
+                .forEach(function (dateStr, ind) {
+                    var list, len, dayEntry;
+                    if (dateStr === ddd.toFullDateString()) {
+                        list = tabGroups[dateStr];
+                        len = list.length;
+                        while (len--) {
+                            dayEntry = list[len];
+                            if (dayEntry.closeTime >= ddd && dir === 'past') {
+                                list.splice(len, 1);
+                            } else if (dayEntry.closeTime < ddd && dir === 'beyond') {
+                                list.splice(len, 1);
+                            }
+                        }
+                    } else if (new Date(dateStr) < ddd && dir === 'beyond') {
+                        tabGroups[dateStr] = [];
+                    }
+                });
+        }
+
+        // ungroup to array
+        var updatedList = [];
+        Object.getOwnPropertyNames(tabGroups)
+            .forEach(function (dateStr) {
+                updatedList = updatedList.concat(tabGroups[dateStr]);
+            });
+
+        localStorage['history'] = JSON.stringify(updatedList);
+        showHistoryResults(updatedList);
+    }
+
+    function initOverlayLayer() {
+        document.querySelector('#clearHist').addEventListener('click', function () {
+            // show options
+            var t, container, clone;
+            t = document.querySelector('#overlay-layer');
+            container = document.querySelector('.results');
+            clone = document.importNode(t.content, true);
+            container.appendChild(clone);
+
+            document.querySelector('#submit-clear').addEventListener('click', function () {
+                var dd = container.querySelector('.overlay-container select');
+                var selectedOption = dd.options[dd.selectedIndex];
+                if (selectedOption.value === "empty") {
+                    // empty completely
+                    localStorage['history'] = '[]';
+                } else {
+                    cleanHistory(selectedOption.value);
+                }
+            });
+
+            document.querySelector('.glyphicon.glyphicon-remove').addEventListener('click', function () {
+                document.querySelector('.overlay-container').remove();
+            });
+            document.querySelector('#cancel-clear').addEventListener('click', function () {
+                document.querySelector('.overlay-container').remove();
+            });
+
+        });
+    }
+
+    function showHistoryResults(alltabs) {
+        var tabGroups = tabsGroupBy(alltabs, 'closeTime');
+        $('.results').empty();
+        Object.getOwnPropertyNames(tabGroups)
+            .sort(function (a, b) {
+                // a<b:-1, a>b:1, a=b:0
+                return (new Date(b) - new Date(a));
+            })
+            .forEach(function (key, ind) {
+                addResultDay(ind, key, tabGroups[key]);
+            });
+    }
+
     window.addEventListener('load', function () {
         window.setTimeout(function () {
             var alltabs = getStoredTabs();
-            var tabGroups = tabsGroupBy(alltabs, 'closeTime');
-
-            Object.getOwnPropertyNames(tabGroups)
-                .sort(function (a, b) {
-                    // a<b:-1, a>b:1, a=b:0
-                    return (new Date(b) - new Date(a));
-                })
-                .forEach(function (key, ind) {
-                    addResultDay(ind, key, tabGroups[key]);
-                });
+            showHistoryResults(alltabs);
+            initOverlayLayer();
         });
     });
 
